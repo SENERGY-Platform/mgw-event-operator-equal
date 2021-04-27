@@ -59,7 +59,7 @@ class Operator:
 
     def trigger(self, engine_url, event_id, output_value):
         print("trigger: {}, {}, {}".format(engine_url, event_id, output_value))
-        myobj = {
+        payload = {
             'messageName': event_id,
             'all': True,
             'resultEnabled': False,
@@ -69,7 +69,7 @@ class Operator:
                 }
             }
         }
-        x = requests.post(engine_url, data=myobj)
+        x = requests.post(engine_url, json=payload, headers={'content-type': 'application/json'})
         if not x.ok:
             print("ERROR: {} {}".format(x.status_code, x.text))
 
