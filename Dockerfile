@@ -1,4 +1,4 @@
-FROM ghcr.io/senergy-platform/converter:dev AS builder
+FROM ghcr.io/senergy-platform/converter:prod AS builder
 
 FROM python:3-slim-buster
 
