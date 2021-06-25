@@ -3,7 +3,7 @@ name: '[builder] CI for releases'
 on:
   push:
     branches:
-      - dev
+      - main
 jobs:
   multi:
     runs-on: ubuntu-latest
@@ -11,6 +11,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -31,8 +34,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
+          file: ./DockerfileARM
+          platforms: linux/arm/v7
           push: true
           tags: |
-            smartenergyplatform/mgw-event-operator-equal:dev
-            ghcr.io/senergy-platform/mgw-event-operator-equal:dev
+            smartenergyplatform/mgw-event-operator-equal:prod
+            ghcr.io/senergy-platform/mgw-event-operator-equal:prod
